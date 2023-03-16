@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "613859614670",
+    "firebase_url": "https://estufainteligente-366da-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "estufainteligente-366da",
+    "storage_bucket": "estufainteligente-366da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613859614670:android:e2c685055884ad258ad59f",
+        "android_client_info": {
+          "package_name": "com.estufaiot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613859614670-mqgu9hrlkm7d0ca1et8dnr50064mk4ct.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.estufaiot",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "613859614670-cncfva8c2om448qrjm2q61de8a0e2imc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjmXKlOEg9ToYMb8AFqMNJBy19ZxB968Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613859614670-cncfva8c2om448qrjm2q61de8a0e2imc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "613859614670-iss0d8ct1qrkqitf438att1k47folbt3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.estufaiot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
