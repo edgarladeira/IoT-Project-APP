@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         singleRecord['humSolo'],
         singleRecord['tempAr'],
         singleRecord['luz'],
-          singleRecord['maduro'] == "true"? true : false,
+        singleRecord['maduro'] == "true"? true : false,
         dateTime,
       );
       ListOfRecords.add(record);
@@ -120,12 +120,12 @@ class _MyAppState extends State<MyApp> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  50.0, 8.0, 0.0, 0.0),
+                                  0.0, 8.0, 0.0, 0.0),
                               child: ListView.builder(
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (BuildContext context, int index) {
-                                    String d1 = DateFormat('dd').format(snapshot.data[index].data);
-                                    String d2 = DateFormat('dd').format(snapshot.data[index].data);
+                                    //print(snapshot.data.length);
+
                                     return Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 8.0),
@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 16),
+                                                padding: const EdgeInsets.only(left: 0),
                                                 child: Text(
                                                   'Dia ${DateFormat('dd-MM-yyyy').format(snapshot.data[index].data)}',
                                                   style:
@@ -212,7 +212,7 @@ class _MyAppState extends State<MyApp> {
                                                         mainAxisAlignment: MainAxisAlignment.center,
 
                                                         children: [
-                                                      Image(image: AssetImage('images/humAr.png'), height: 45,),
+                                                          Image(image: AssetImage('images/humAr.png'), height: 45,),
                                                           Container(
                                                             width: 5,
                                                           ),
