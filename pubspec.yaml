@@ -93,7 +93,10 @@ flutter:
     - assets/lottie_animations/
     - assets/rive_animations/
     - assets/pdfs/
-
+    - images/humAr.png
+    - images/humSolo.png
+    - images/temp.png
+    - images/luz.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -9,6 +9,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 
 import 'package:http/http.dart' as http;
 import 'Record.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,19 +33,29 @@ class _MyAppState extends State<MyApp> {
     //replace your restFull API here.
     String url = "http://192.168.0.112:8080/client/getAllRecords";
     final response = await http.get(Uri.parse(url));
-    //print(response);
-    var responseData = json.decode(response.body);
-    //print(responseData);
 
+    var responseData = json.decode(response.body);
+
+    //Record record = Record(123, 321, 456, 654, false, );
     //Creating a list to store input data;
     List<Record> ListOfRecords = [];
+    //ListOfRecords.add(record);
+    print(responseData);
     for (var singleRecord in responseData) {
+
+      var milliseconds = singleRecord['created']['seconds'] * 1000 + (singleRecord['created']['nanoseconds'] / 1000000).round();
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+
+      print(DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime));
+
+
       Record record = Record(
         singleRecord['humAr'],
         singleRecord['humSolo'],
         singleRecord['tempAr'],
         singleRecord['luz'],
-          singleRecord['maduro'] == "true"? true : false
+          singleRecord['maduro'] == "true"? true : false,
+        dateTime,
       );
       ListOfRecords.add(record);
     }
@@ -88,14 +99,15 @@ class _MyAppState extends State<MyApp> {
                       );
                     } else {
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 12.0, 16.0, 0.0),
                               child: Text(
-                                'Estes são os valores obtidos do Arduino.',
-                                style: FlutterFlowTheme.of(context).subtitle2,
+                                'Estes são os valores obtidos do Arduino:',
+                                style: FlutterFlowTheme.of(context).title3,
                               )),
                           Divider(
                             height: 4.0,
@@ -104,13 +116,16 @@ class _MyAppState extends State<MyApp> {
                             endIndent: 16.0,
                             color: FlutterFlowTheme.of(context).lineColor,
                           ),
+
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
+                                  50.0, 8.0, 0.0, 0.0),
                               child: ListView.builder(
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (BuildContext context, int index) {
+                                    String d1 = DateFormat('dd').format(snapshot.data[index].data);
+                                    String d2 = DateFormat('dd').format(snapshot.data[index].data);
                                     return Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 8.0),
@@ -118,90 +133,213 @@ class _MyAppState extends State<MyApp> {
                                           onTap: () {
                                             print("CLIQUEI Num record");
                                           },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: FlutterFlowTheme
-                                                  .of(context)
-                                                  .secondaryBackground,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 5.0,
-                                                  color: Color(0x230E151B),
-                                                  offset: Offset(0.0, 2.0),
-                                                )
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(8.0),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      16.0, 8.0, 16.0, 8.0),
-                                                  child: Text(
-                                                    'Humidade',
-                                                    style:
-                                                    FlutterFlowTheme
-                                                        .of(
-                                                        context)
-                                                        .subtitle2,
-                                                  ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 16),
+                                                child: Text(
+                                                  'Dia ${DateFormat('dd-MM-yyyy').format(snapshot.data[index].data)}',
+                                                  style:
+                                                  FlutterFlowTheme
+                                                      .of(
+                                                      context)
+                                                      .title3,
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      16.0, 0.0, 16.0, 24.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                    MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        snapshot.data[index].humAr.toString()
-                                                        ,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme
+                                                      .of(context)
+                                                      .secondaryBackground,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 5.0,
+                                                      color: Color(0x230E151B),
+                                                      offset: Offset(0.0, 2.0),
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 8.0, 0.0, 8.0),
+                                                      child: Text(
+                                                        'Hora',
+                                                        style:
+                                                        FlutterFlowTheme
+                                                            .of(
+                                                            context)
+                                                            .title3,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                      child: Text(
+                                                        DateFormat('HH:mm').format(snapshot.data[index].data),
                                                         style:
                                                         FlutterFlowTheme
                                                             .of(
                                                             context)
                                                             .title2,
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      16.0, 8.0, 16.0, 8.0),
-                                                  child: Text(
-                                                    'Temperatura',
-                                                    style:
-                                                    FlutterFlowTheme
-                                                        .of(
-                                                        context)
-                                                        .subtitle2,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      16.0, 0.0, 16.0, 24.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                    MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        snapshot.data[index].tempAr.toString(),
+                                                    ),
+
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 16.0, 0.0, 0.0),
+                                                      child: Text(
+                                                        'Humidade do Ar',
                                                         style:
                                                         FlutterFlowTheme
                                                             .of(
                                                             context)
-                                                            .title2,
+                                                            .title3,
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 0.0, 0.0, 16.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+
+                                                        children: [
+                                                      Image(image: AssetImage('images/humAr.png'), height: 45,),
+                                                          Container(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            snapshot.data[index].humAr.toString()
+                                                            ,
+                                                            style:
+                                                            FlutterFlowTheme
+                                                                .of(
+                                                                context)
+                                                                .title2,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 8.0, 0.0, 8.0),
+                                                      child: Text(
+                                                        'Humidade do Solo',
+                                                        style:
+                                                        FlutterFlowTheme
+                                                            .of(
+                                                            context)
+                                                            .title3,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 0.0, 0.0, 16.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Image(image: AssetImage('images/humSolo.png'), height: 52,),
+                                                          Container(
+                                                            width: 25,
+                                                          ),
+                                                          Text(
+                                                            snapshot.data[index].humSolo.toString()
+                                                            ,
+                                                            style:
+                                                            FlutterFlowTheme
+                                                                .of(
+                                                                context)
+                                                                .title2,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 8.0, 0.0, 8.0),
+                                                      child: Text(
+                                                        'Luminosidade',
+                                                        style:
+                                                        FlutterFlowTheme
+                                                            .of(
+                                                            context)
+                                                            .title3,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 0.0, 0.0, 16.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Image(image: AssetImage('images/luz.png'), height: 52,),
+                                                          Container(
+                                                            width: 20,
+                                                          ),
+                                                          Text(
+                                                            snapshot.data[index].luz.toString()
+                                                            ,
+                                                            style:
+                                                            FlutterFlowTheme
+                                                                .of(
+                                                                context)
+                                                                .title2,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 8.0, 0.0, 8.0),
+                                                      child: Text(
+                                                        'Temperatura do Ar',
+                                                        style:
+                                                        FlutterFlowTheme
+                                                            .of(
+                                                            context)
+                                                            .title3,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0.0, 0.0, 0.0, 16.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Image(image: AssetImage('images/temp.png'), height: 52,),
+                                                          Container(
+                                                            width: 15,
+                                                          ),
+                                                          Text(
+                                                            snapshot.data[index].tempAr.toString(),
+                                                            style:
+                                                            FlutterFlowTheme
+                                                                .of(
+                                                                context)
+                                                                .title2,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),                                      ),
+                                            ],
+                                          ),
                                         ));
                                   }),
                             ),
